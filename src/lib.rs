@@ -1,13 +1,17 @@
-extern crate wasm_bindgen;
+#[cfg(target_arch = "x86_64")]
+#[macro_use]
+extern crate vst;
 
-use wasm_bindgen::prelude::*;
+#[cfg(target_arch = "x86_64")]
+mod native;
 
-#[wasm_bindgen]
-extern {
-    pub fn alert(s: &str);
-}
+#[cfg(target_arch = "x86_64")]
+#[allow(unused_imports)]
+use self::native::*;
 
-#[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
-}
+#[cfg(target_arch = "wasm32")]
+mod wasm;
+
+#[cfg(target_arch = "wasm32")]
+#[allow(unused_imports)]
+use self::wasm::*;
