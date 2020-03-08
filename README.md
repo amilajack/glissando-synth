@@ -11,14 +11,14 @@ cargo build --release
 ### release
 
 ```sh
-./scripts/osx_vst_bundler.sh Glissando target/release/libglissando_vst.dylib
+./scripts/osx_vst_bundler.sh Synth target/release/libglissando_synth.dylib
 ```
 
 ### install
 
 ```sh
-sudo chown -R root:wheel Glissando.vst
-sudo mv Glissando.vst /Library/Audio/Plug-Ins/VST
+sudo chown -R root:wheel Synth.vst
+sudo mv Synth.vst /Library/Audio/Plug-Ins/VST
 ```
 
 ## wasm
