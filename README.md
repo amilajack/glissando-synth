@@ -1,4 +1,4 @@
-# glissando-vst
+# glissando-synth
 
 ## native
 
