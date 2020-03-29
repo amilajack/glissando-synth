@@ -31,28 +31,6 @@ fn fill_samples(audio_buffer: &AudioBuffer, sample_rate: f32) {
     audio_buffer.copy_to_channel(&mut right_channel, 1).expect("Could not copy channel");
 }
 
-async fn audio_worklet_add_module(ctx: &AudioContext) -> Result<JsValue, JsValue> {
-    let _audio_worklet = ctx.audio_worklet()?;
-    let promise = _audio_worklet.add_module("/packages/glissando-app/white-noise-processor.js")?;
-    let result = wasm_bindgen_futures::JsFuture::from(promise).await?;
-    Ok(result)
-}
-
-fn fill_samples(audio_buffer: &AudioBuffer, sample_rate: f32) {
-    // Fill the buffer with a sine wave
-    let mut left_channel = audio_buffer.get_channel_data(0).unwrap();
-    let mut right_channel = audio_buffer.get_channel_data(1).unwrap();
-    for i in 0..audio_buffer.length() {
-        let sample_time = i as f32 / sample_rate;
-        let sample_angle = sample_time * ANGULAR_FREQUENCY;
-        let sample = f32::sin(sample_angle);
-        left_channel[i as usize] = sample;
-        right_channel[i as usize] = sample;
-    }
-    audio_buffer.copy_to_channel(&mut left_channel, 0).expect("Could not copy channel");
-    audio_buffer.copy_to_channel(&mut right_channel, 1).expect("Could not copy channel");
-}
-
 /*async fn audio_worklet_add_module(ctx: &AudioContext) -> Result<JsValue, JsValue> {
     let _audio_worklet = ctx.audio_worklet()?;
     let promise = _audio_worklet.add_module("/packages/glissando-app/white-noise-processor.js")?;
