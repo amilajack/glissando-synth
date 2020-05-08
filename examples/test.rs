@@ -1,25 +1,24 @@
 extern crate portaudio;
 extern crate sample;
 
-use std::f64::consts::PI;
-
 const CHANNELS: i32 = 2;
 const FRAMES: u32 = 64;
 const SAMPLE_HZ: f64 = 44_100.0;
 const DURATION: i32 = 2;
-const N_FRAMES: i32 = (SAMPLE_HZ as i32) * DURATION;
-const SYNTH_HZ: f64 = 440.0;
+const N_FRAMES: usize = ((SAMPLE_HZ as i32) * DURATION) as usize;
+const SIGNAL_HZ: f64 = 440.0;
 
 fn main() {
   run().unwrap()
 }
 
-fn square_wave(phase: f64) -> f32 {
-  let val = (phase * PI * 2.0).sin();
+fn square_wave(time: f64) -> f32 {
+  let period = 1.0 / SIGNAL_HZ;
+  let ratio = time / period;
 
-  if val >= 0.0 {
+  if ratio.fract() <= 0.5 {
     1.0
-  } else{
+  } else {
     -1.0
   }
 }
@@ -36,24 +35,24 @@ fn run() -> Result<(), portaudio::Error> {
   }
 
   let mut frames_count = 0;
-  let mut phase = 0.0;
+  let mut time = 0.0;
 
   let callback = move |portaudio::OutputStreamCallbackArgs { buffer, frames, .. }| {
     let buffer: &mut [[f32; CHANNELS as usize]] =
       sample::slice::to_frame_slice_mut(buffer).unwrap();
 
     for frame in buffer {
-      let val = square_wave(phase);
+      let val = square_wave(time);
 
       frame[0] = val;
       frame[1] = val;
 
-      phase += SYNTH_HZ / SAMPLE_HZ;
+      time += 1.0 / SAMPLE_HZ;
     }
 
     frames_count += frames;
 
-    if frames_count >= (N_FRAMES as usize) {
+    if frames_count >= N_FRAMES {
       portaudio::Complete
     } else {
       portaudio::Continue
