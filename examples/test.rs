@@ -23,16 +23,23 @@ fn square_wave(time: f64) -> f32 {
   }
 }
 
-fn run() -> Result<(), portaudio::Error> {
-  let pa = portaudio::PortAudio::new()?;
-  let settings = pa.default_output_stream_settings::<f32>(CHANNELS, SAMPLE_HZ, FRAMES)?;
-
+fn list_devices(pa: &portaudio::PortAudio) -> Result<(), portaudio::Error> {
   println!("Devices");
   println!("=======");
+
   for device in pa.devices()? {
     let (device_index, device_info) = device?;
     println!("{}: {}", device_index.0, device_info.name);
   }
+
+  Ok(())
+}
+
+fn run() -> Result<(), portaudio::Error> {
+  let pa = portaudio::PortAudio::new()?;
+  list_devices(&pa)?;
+
+  let settings = pa.default_output_stream_settings::<f32>(CHANNELS, SAMPLE_HZ, FRAMES)?;
 
   let mut frames_count = 0;
   let mut time = 0.0;
