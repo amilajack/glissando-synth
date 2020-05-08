@@ -4,8 +4,8 @@ extern crate sample;
 const CHANNELS: i32 = 2;
 const FRAMES: u32 = 64;
 const SAMPLE_HZ: f64 = 44_100.0;
-const DURATION: i32 = 2;
-const N_FRAMES: usize = ((SAMPLE_HZ as i32) * DURATION) as usize;
+const DURATION: usize = 2;
+const N_FRAMES: usize = ((SAMPLE_HZ as usize) * DURATION) as usize;
 const SIGNAL_HZ: f64 = 440.0;
 
 fn main() {
