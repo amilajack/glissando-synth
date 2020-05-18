@@ -12,9 +12,26 @@ vst = "0.2"
 dsp-chain = "0.13"
 sample = "0.10"
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen = "0.2"
-
-
 [target.'cfg(target_arch = "x86_64")'.dev-dependencies]
 portaudio = "0.7"
+wasm-bindgen-futures = "0.4.10"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+futures = "0.3.4"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies.web-sys]
+version = "0.3.4"
+features = [
+  'AudioContext',
+  'AudioDestinationNode',
+  'AudioNode',
+  'AudioParam',
+  'GainNode',
+  'OscillatorNode',
+  'OscillatorType',
+  'AudioBufferSourceNode',
+  'AudioBuffer',
+  'AudioWorklet',
+  'AudioWorkletNode',
+]
