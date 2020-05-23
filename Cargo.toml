@@ -1,6 +1,6 @@
 [package]
 name = "glissando-synth"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Rodrigo García <yo@rodrigogarcia.me>"]
 edition = "2018"
 

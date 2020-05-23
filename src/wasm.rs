@@ -140,19 +140,19 @@ impl Osc {
     #[wasm_bindgen]
     pub fn set_note(&self, note: String) {
         let mut note_to_freq = std::collections::HashMap::new();
-        note_to_freq.insert("C4".to_string(), 523.28);
-        note_to_freq.insert("C#4".to_string(), 554.40);
-        note_to_freq.insert("D4".to_string(), 587.36);
-        note_to_freq.insert("D#4".to_string(), 622.24);
-        note_to_freq.insert("E4".to_string(), 659.28);
-        note_to_freq.insert("F4".to_string(), 698.48);
-        note_to_freq.insert("F#4".to_string(), 740.00);
-        note_to_freq.insert("G4".to_string(), 784.00);
-        note_to_freq.insert("G#4".to_string(), 830.64);
+        note_to_freq.insert("C4".to_string(), 261.64);
+        note_to_freq.insert("C#4".to_string(), 277.20);
+        note_to_freq.insert("D4".to_string(), 293.68);
+        note_to_freq.insert("D#4".to_string(), 311.12);
+        note_to_freq.insert("E4".to_string(), 329.64);
+        note_to_freq.insert("F4".to_string(), 349.24);
+        note_to_freq.insert("F#4".to_string(), 370.00);
+        note_to_freq.insert("G4".to_string(), 392.00);
+        note_to_freq.insert("G#4".to_string(), 415.32);
         note_to_freq.insert("A4".to_string(), 440.00);
         note_to_freq.insert("A#4".to_string(), 466.16);
         note_to_freq.insert("B4".to_string(), 493.92);
-        note_to_freq.insert("C5".to_string(), 1046.56);
+        note_to_freq.insert("C5".to_string(), 523.28);
 
         let freq = *note_to_freq.get(&note).unwrap() as f32;
         self.osc.frequency().set_value_at_time(freq, self.ctx.current_time()).unwrap();
