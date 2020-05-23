@@ -41,6 +41,7 @@ fn fill_samples(audio_buffer: &AudioBuffer, sample_rate: f32) {
 #[wasm_bindgen]
 pub struct Osc {
     ctx: AudioContext,
+    osc: OscillatorNode,
     osc_amp: GainNode,
     audio_buffer_amp: GainNode,
     //white_noise_amp: GainNode,
@@ -86,6 +87,7 @@ impl Osc {
 
         Ok(Osc {
             ctx,
+            osc,
             osc_amp,
             audio_buffer_amp,
             //white_noise_amp,
@@ -133,5 +135,26 @@ impl Osc {
     #[wasm_bindgen]
     pub fn resume(&self) {
         self.ctx.resume();
+    }
+
+    #[wasm_bindgen]
+    pub fn set_note(&self, note: String) {
+        let mut note_to_freq = std::collections::HashMap::new();
+        note_to_freq.insert("C4".to_string(), 523.28);
+        note_to_freq.insert("C#4".to_string(), 554.40);
+        note_to_freq.insert("D4".to_string(), 587.36);
+        note_to_freq.insert("D#4".to_string(), 622.24);
+        note_to_freq.insert("E4".to_string(), 659.28);
+        note_to_freq.insert("F4".to_string(), 698.48);
+        note_to_freq.insert("F#4".to_string(), 740.00);
+        note_to_freq.insert("G4".to_string(), 784.00);
+        note_to_freq.insert("G#4".to_string(), 830.64);
+        note_to_freq.insert("A4".to_string(), 440.00);
+        note_to_freq.insert("A#4".to_string(), 466.16);
+        note_to_freq.insert("B4".to_string(), 493.92);
+        note_to_freq.insert("C5".to_string(), 1046.56);
+
+        let freq = *note_to_freq.get(&note).unwrap() as f32;
+        self.osc.frequency().set_value_at_time(freq, self.ctx.current_time()).unwrap();
     }
 }
