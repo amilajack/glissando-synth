@@ -46,11 +46,13 @@ wasm-pack publish
 ### setup
 
 ```sh
-pip install jupyter numpy scipy matplotlib
+brew install pyenv poetry
+pyenv install 3.8.3
+poetry install
 ```
 
 ### usage
 
 ```sh
-jupyter notebook
+poetry run jupyter notebook
 ```
