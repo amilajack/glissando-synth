@@ -1,0 +1,29 @@
+{
+  "name": "glissando-synth",
+  "version": "0.1.4",
+  "description": "glissando-synth",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "npm run build:wasm-pack && npm run build:rollup",
+    "build:wasm-pack": "wasm-pack build --target web --scope glissando",
+    "build:rollup": "rollup -c rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glissando-daw/glissando-synth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glissando-daw/glissando-synth/issues"
+  },
+  "homepage": "https://github.com/glissando-daw/glissando-synth#readme",
+  "devDependencies": {
+    "@rollup/plugin-wasm": "^5.0.0",
+    "rollup": "^2.18.1"
+  }
+}

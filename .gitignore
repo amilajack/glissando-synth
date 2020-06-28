@@ -5,3 +5,5 @@ Cargo.lock
 Glissando.vst
 .vscode
 pkg
+node_modules
+dist
