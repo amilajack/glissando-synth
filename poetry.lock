@@ -112,6 +112,7 @@ optional = false
 python-versions = ">=3.6"
 version = "7.16.1"
 
+
 [package.dependencies]
 appnope = "*"
 backcall = "*"
